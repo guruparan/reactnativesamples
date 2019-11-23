@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { getSearchResults } from '../utils/MovieService';
+import Analytics from 'appcenter-analytics';
 
 export default class MovieList extends PureComponent {
 
@@ -17,9 +18,11 @@ export default class MovieList extends PureComponent {
     };
 
     async componentDidMount() {
-        const data = await getSearchResults(this.props.navigation.getParam('searchText'));
+        const keyword = this.props.navigation.getParam('searchText');
+        Analytics.trackEvent("Search Initiated", { keyword: keyword });
+        const data = await getSearchResults(keyword);
+
         if (data) {
-            //alert(data);
             this.setState({
                 loading: false,
                 data: data.Search
@@ -41,11 +44,11 @@ export default class MovieList extends PureComponent {
 
         let image = null;
         if (item.Poster === 'N/A') {
-            //image = require('../../assets/default_poster.jpg');
+            image = require('../images/default_poster.jpg');
         }
 
         return (
-            <TouchableHighlight onPress={() => this.navigate(item)}>
+            <TouchableHighlight onPress={() => this.navigate(item)} key={index}>
                 <View style={styles.movieItemWrap}>
                     <Image
                         style={styles.moviePoster}

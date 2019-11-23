@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
 import { getMovieDetails } from '../utils/MovieService';
+import Analytics from 'appcenter-analytics';
 
 export default class MovieInfo extends Component {
     constructor(props) {
@@ -16,7 +17,10 @@ export default class MovieInfo extends Component {
     };
 
     async componentDidMount() {
-        const data = await getMovieDetails(this.props.navigation.getParam('movieId'));
+        const movieid = this.props.navigation.getParam('movieId');
+        Analytics.trackEvent("Movie Viewed", { movieId: movieid });
+        const data = await getMovieDetails(movieid);
+        
         if (data) {
             this.setState({
                 loading: false,
@@ -60,14 +64,13 @@ export default class MovieInfo extends Component {
     }
 
     render() {
-        //http://www.omdbapi.com/?apikey=53473bbd&i=tt0167260
         if (this.state.loading) {
             return (<View style={styles.message}>
                 <Text style={styles.messageText}>Loading Please wait</Text>
             </View>);
         }
 
-        const movie = this.state.movie;
+        const { movie } = this.state;
 
         const posterUrl = movie.Poster !== 'N/A' ? movie.Poster : null;
 

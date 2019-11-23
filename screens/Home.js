@@ -12,7 +12,7 @@ export default class Home extends PureComponent {
     }
 
     componentDidMount() {
-        //Analytics.trackEvent("Home Loaded");
+        Analytics.trackEvent("Home Loaded");
     }
 
     onSearchButtonPress = () => {
