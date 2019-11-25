@@ -15,6 +15,7 @@
     "appcenter-crashes": "2.6.0",
     "react": "16.9.0",
     "react-native": "0.61.4",
+    "react-native-code-push": "^5.7.0",
     "react-navigation": "^2.18.3"
   },
   "devDependencies": {

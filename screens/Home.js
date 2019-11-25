@@ -21,7 +21,7 @@ export default class Home extends PureComponent {
         if (searchText) {
             this.props.navigation.navigate('MovieList', { searchText: searchText });
         } else {
-            alert('Enter Search Text');
+            alert('Enter Search Text to begin');
         }
     };
 
