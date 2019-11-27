@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import Analytics from 'appcenter-analytics';
+import Crashes from 'appcenter-crashes';
 
 export default class Home extends PureComponent {
 
@@ -19,6 +20,9 @@ export default class Home extends PureComponent {
         const { searchText } = this.state;
 
         if (searchText) {
+            if (searchText === 'crashtest') {
+                throw new Error('This is a test javascript crash!');
+            }
             this.props.navigation.navigate('MovieList', { searchText: searchText });
         } else {
             alert('Enter Search Text to begin');
