@@ -14,6 +14,21 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    title:
+    {
+        color: 'white',
+        fontSize: 20
+    },
+    button: {
+        marginVertical: 5,
+        padding: 5,
+        borderWidth: 2,
+        borderColor: 'black',
+        width: '100%'
+    },
+    buttonText: {
+        fontSize: 15
     }
 });
 
@@ -38,17 +53,11 @@ export default class SideMenu extends PureComponent {
         return (
             <View style={styles.container}>
                 <View style={[{ height: this.state.topBarHeight }, styles.topBar]}>
-                    <Text style={{ color: 'white', fontSize: 20 }}>Navigation Sample</Text>
+                    <Text style={styles.title}>Navigation Sample</Text>
                 </View>
                 <View>
                     <TouchableOpacity
-                        style={{
-                            marginVertical: 5,
-                            padding: 5,
-                            borderWidth: 2,
-                            borderColor: 'black',
-                            width: '100%'
-                        }}
+                        style={styles.button}
                         onPress={
                             () => {
                                 navigate(screens.BookList, {
@@ -60,7 +69,7 @@ export default class SideMenu extends PureComponent {
                                 });
                                 toggleDrawer();
                             }}>
-                        <Text style={{ fontSize: 15 }}>Browse</Text>
+                        <Text style={styles.buttonText}>Browse</Text>
                     </TouchableOpacity>
                 </View>
             </View >
