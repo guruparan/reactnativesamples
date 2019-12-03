@@ -7,6 +7,7 @@ export default class BookInfo extends PureComponent {
 
     constructor(props) {
         super(props);
+        //Bind the navigation button press listener
         Navigation.events().bindComponent(this);
 
         this.state = {
@@ -15,6 +16,8 @@ export default class BookInfo extends PureComponent {
     }
 
     componentDidDisappear() {
+        //remove backpress handler
+        //Have to do this in disappear or else this will work in next screen as well
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
     }
 
@@ -23,6 +26,7 @@ export default class BookInfo extends PureComponent {
     }
 
     navigationButtonPressed({ buttonId }) {
+        //Handle back button press event
         switch (buttonId) {
             case 'backbutton':
                 this.handleBackPress();
@@ -34,6 +38,7 @@ export default class BookInfo extends PureComponent {
     }
 
     handleBackPress = () => {
+        //returning true will let react know that the event is handled
         Alert.alert(
             'Confirm',
             'Confirm exit',
@@ -47,6 +52,7 @@ export default class BookInfo extends PureComponent {
     };
 
     updateClapCount = () => {
+        //Update the clap count in the top bar
         this.setState({ claps: this.state.claps + 1 }, () => {
             Navigation.mergeOptions(this.props.componentId, {
                 topBar: {
